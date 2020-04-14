@@ -1,2 +1,2 @@
 # GameOfHeroes
- survival game written in python language
+ Survival game written in python language
