@@ -1,4 +1,5 @@
 from time import sleep
+import json
 
 
 def carregarJogo(player):
@@ -6,21 +7,23 @@ def carregarJogo(player):
     Função que carrega o jogo
     """
     try:
-        jogoSalvo = open('jogoSalvo.txt', 'r')
+        jogoSalvo = open('jogoSalvo.json', 'rb')
         jogoSalvo.close()
-    except FileNotFoundError:
+    except IOError:
         print('\033[1;31mNão foi encontrado nenhum jogo Salvo\033[m')
         return
 
-    with open('jogoSalvo.txt', 'r') as jogoSalvo:
-        dados = jogoSalvo.read().split('\n')
+    with open('jogoSalvo.json', 'rb') as jogoSalvo:
+        data = jogoSalvo.readline()
+        data.decode()
+        objeto = json.loads(data)
 
-        player.nome = dados[0]
-        player.For = int(dados[1])
-        player.Def = int(dados[2])
-        player.HP = float(dados[3])
-        player.SP = float(dados[4])
-        player.inimigosMortos = int(dados[5])
+        player.nome = objeto['nome']
+        player.For = objeto['For']
+        player.Def = objeto['Def']
+        player.HP = objeto['HP']
+        player.SP = objeto['SP']
+        player.inimigosMortos = objeto['inimigosMortos']
 
     print('Carregando Jogo....')
     sleep(3)
@@ -31,16 +34,12 @@ def salvarJogo(player):
     """
     Função que salva o jogo
     """
-    jogoSalvo = open('jogoSalvo.txt', 'w')
+    with open('jogoSalvo.json', 'wb') as jogoSalvo:
 
-    jogoSalvo.write(f'{player.nome}\n')
-    jogoSalvo.write(f'{player.For}\n')
-    jogoSalvo.write(f'{player.Def}\n')
-    jogoSalvo.write(f'{player.HP}\n')
-    jogoSalvo.write(f'{player.SP}\n')
-    jogoSalvo.write(f'{player.inimigosMortos}')
+        data = player.__dict__
 
-    jogoSalvo.close()
+        data_string = json.dumps(data)
+        jogoSalvo.write(data_string.encode())
 
     print('Salvando Jogo..')
     sleep(3)

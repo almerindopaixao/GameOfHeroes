@@ -1,0 +1,1 @@
+{"nome": "Player", "For": 20, "Def": 20, "HP": 500, "SP": 100, "ATKS": {"espadada": {"SP": 0}, "flechada": {"SP": 2}, "curar": {"SP": 10}, "lancaDeGelo": {"SP": 10}, "clavada": {"SP": 0}, "relampago": {"SP": 5}, "bolaDeFogo": {"SP": 10}}, "inimigosMortos": 0}
